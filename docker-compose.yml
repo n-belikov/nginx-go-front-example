@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  nginx:
+    image: nginx:1.18.0-alpine
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx:/etc/nginx
+  frontend:
+    build:
+     context: ./frontend
+     dockerfile: Dockerfile
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+  backend:
+    build:
+     context: ./backend
+     dockerfile: Dockerfile
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
